@@ -1,0 +1,34 @@
+# render.yaml — Infrastructure as Code for Render.com
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Deploy:
+#   1. Push this repo to GitHub
+#   2. Go to https://dashboard.render.com → New → Blueprint
+#   3. Connect your repo — Render auto-detects this file
+#   4. Set GROQ_API_KEY in the Render dashboard environment variables
+
+services:
+  - type: web
+    name: ecolab-agent-backend
+    runtime: python
+    region: oregon
+    plan: free                          # free tier: 512MB RAM, spins down after 15min inactivity
+
+    # Build
+    buildCommand: pip install -r web/backend/requirements.txt && pip install -r requirements.txt
+    startCommand: uvicorn web.backend.main:app --host 0.0.0.0 --port $PORT
+
+    # Environment variables
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false                     # mark as secret — set manually in Render dashboard
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: PYTHONUNBUFFERED
+        value: "1"                      # ensures logs stream immediately
+
+    # Health check
+    healthCheckPath: /health
+
+    # Auto-deploy on push to main branch
+    autoDeploy: true

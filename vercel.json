@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "web/frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://ecolab-agent-backend.onrender.com/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/web/frontend/dist/$1"
+    }
+  ],
+  "env": {
+    "VITE_BACKEND_URL": "https://ecolab-agent-backend.onrender.com"
+  }
+}

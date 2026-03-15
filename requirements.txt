@@ -1,0 +1,17 @@
+# Ecolab AI Agent — Python dependencies
+# Install with: pip install -r requirements.txt
+
+# ── Vector DB (Weaviate Embedded, no Docker) ──
+weaviate-client>=4.6.0
+
+# ── Local embeddings (sentence-transformers, no API key) ──
+sentence-transformers>=3.0.0
+
+# ── HTTP client — Gemini API + USGS/EPA APIs ──
+httpx>=0.27.0
+
+# ── MCP server (optional, for future Claude CLI use) ──
+mcp>=1.0.0
+
+# ── Optional: PDF ingestion ──
+pypdf>=4.0.0

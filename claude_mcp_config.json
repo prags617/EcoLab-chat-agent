@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "ecolab-agent": {
+      "command": "python",
+      "args": ["/ABSOLUTE/PATH/TO/ecolab-agent/mcp-server/server.py"]
+    }
+  }
+}
